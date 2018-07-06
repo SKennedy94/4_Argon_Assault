@@ -1,20 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MusicPlayer : MonoBehaviour {
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+public class SceneLoader : MonoBehaviour {
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         Invoke("nextScene", 4f);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
 
     void nextScene()
     {

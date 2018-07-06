@@ -2,18 +2,24 @@
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class Player : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
     private float Horizontal;
     private float Vertical;
+    public bool IsAlive = true;
 
-    [Tooltip("in ms^-1")][SerializeField] private float xSpeed = 4f;
-    [Tooltip("in ms^-1")] [SerializeField] private float ySpeed = 4f;
-    [SerializeField] private float xRange = 5f;
-    [SerializeField] private float yRange = 5f;
+    [Header("General")]
+    [Tooltip("in ms^-1")][SerializeField] private float xSpeed = 10f;
+    [Tooltip("in ms^-1")] [SerializeField] private float ySpeed = 6f;
+    [SerializeField] private float xRange = 6f;
+    [SerializeField] private float yRange = 4.5f;
+
+    [Header("Screen-Position Based")]
     [SerializeField] private float positionPitchFactor = -5f;
+    [SerializeField] private float positionYawFactor = 7f;
+
+    [Header("Control-Throw Based")]
     [SerializeField] private float controlPitchFactor = -20f;
-    [SerializeField] private float positionYawFactor = 5f;
-    [SerializeField] private float controlRowFactor = -20f;
+    [SerializeField] private float controlRowFactor = -30f;
 
     // Use this for initialization
     void Start () {
@@ -23,8 +29,16 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        ProcessTranslation();
-        ProcessRotation();
+        if (IsAlive)
+        {
+            ProcessTranslation();
+            ProcessRotation();
+        }
+    }
+
+    private void OnPlayerDeath() // called by string reference
+    {
+        IsAlive = false;
     }
 
     private void ProcessRotation()
