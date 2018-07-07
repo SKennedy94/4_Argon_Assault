@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField] Transform parent;
 
     [SerializeField] int scorePerHit = 12;
+    [SerializeField] int hits = 10;
 
     ScoreBoard scoreBoard;
 
@@ -25,9 +26,17 @@ public class Enemy : MonoBehaviour {
 
     private void OnParticleCollision(GameObject other)
     {
+        ProcessHit();
+        if (hits <= 0)
+        {
+            StartDeathSequence();
+        }
+    }
+
+    private void ProcessHit()
+    {
         scoreBoard.scoreHit(scorePerHit);
-        StartDeathSequence();
-        print("particles collided with enemy: " + gameObject.name);
+        hits--;
     }
 
     private void StartDeathSequence()
